@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>職員室向け注文フォーム</title>
+</head>
+<body>
+  <h2>職員室向け注文フォーム</h2>
+
+  <label>ユーザー名:
+    <input type="text" id="username">
+  </label><br>
+
+  <label>職員室:
+    <select id="room">
+      <option value="職員室">職員室</option>
+      <option value="生徒指導室">生徒指導室</option>
+      <option value="進路指導室">進路指導室</option>
+      <option value="商業センター">商業センター</option>
+    </select>
+  </label><br>
+
+  <label>商品名:
+    <select id="product">
+      <option value="お茶">お茶</option>
+      <option value="コーヒー">コーヒー</option>
+      <option value="クッキー">クッキー</option>
+      <option value="キャンディ">キャンディ</option>
+    </select>
+  </label><br>
+
+  <label>数量:
+    <input type="number" id="quantity" value="1" min="1">
+  </label><br><br>
+
+  <button onclick="submitOrder()">注文する</button>
+
+  <p id="result"></p>
+
+  <script>
+    function submitOrder() {
+      const data = {
+        username: document.getElementById('username').value,
+        room: document.getElementById('room').value,
+        product: document.getElementById('product').value,
+        quantity: document.getElementById('quantity').value
+      };
+
+      fetch('https://script.google.com/macros/s/XXXXX/exec', { // ← 自分のGASのURLに書き換えてね
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => response.text())
+      .then(text => {
+        document.getElementById('result').innerText = '送信成功: ' + text;
+      })
+      .catch(error => {
+        document.getElementById('result').innerText = 'エラー: ' + error;
+      });
+    }
+  </script>
+</body>
+</html>
