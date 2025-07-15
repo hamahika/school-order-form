@@ -39,28 +39,31 @@
 
   <script>
     function submitOrder() {
-      const data = {
-        username: document.getElementById('username').value,
-        room: document.getElementById('room').value,
-        product: document.getElementById('product').value,
-        quantity: document.getElementById('quantity').value
-      };
+  const data = {
+    username: document.getElementById('username').value,
+    room: document.getElementById('room').value,
+    product: document.getElementById('product').value,
+    quantity: document.getElementById('quantity').value
+  };
 
-      fetch('https://script.google.com/a/macros/ict.shimanet.ed.jp/s/AKfycbxdbe0gpeBydfKxqwiNgwoSECtOj4lm4natr6Vl_KTEROKipMU2mOaVonsXxm67imrCRg/exec',
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      .then(response => response.text())
-      .then(text => {
-        document.getElementById('result').innerText = '送信成功: ' + text;
-      })
-      .catch(error => {
-        document.getElementById('result').innerText = 'エラー: ' + error;
-      });
+  fetch('https://script.google.com/a/macros/ict.shimanet.ed.jp/s/AKfycbxdbe0gpeBydfKxqwiNgwoSECtOj4lm4natr6Vl_KTEROKipMU2mOaVonsXxm67imrCRg/exec', {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json'
     }
+  })
+  .then(response => response.text())
+  .then(text => {
+    // 成功したら完了ページに遷移
+    location.href = 'complete.html';
+  })
+  .catch(error => {
+    // エラーの場合は画面に表示
+    document.getElementById('result').innerText = 'エラー: ' + error;
+  });
+}
+
   </script>
 </body>
 </html>
